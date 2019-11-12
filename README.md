@@ -11,7 +11,7 @@ Power-on Self Test for TTGO T-Motion (AcSiP S76G based) LoRaWAN GNSS tracker
 
 <br>
 
-* 0.96" I<sup>2</sup>C OLED display (if connected)
+* 0.96" I<sup>2</sup>C OLED display ( _if_ _connected_ )
 
 <br>
 
@@ -38,7 +38,7 @@ You will need to get and connect ST-LINK/V2 USB adapter in order to put the firm
 12. Select _Tools_ -> _Port_ ->  ``<your ST-LINK/V2 port device name>``
 13. Build and upload the sketch using _Sketch_ -> _Upload_
 
-## Credits
+# Credits
 
 Name|Subject
 ---|---
