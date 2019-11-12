@@ -1,6 +1,24 @@
 # POST_S76G
 Power-on Self Test for TTGO T-Motion (AcSiP S76G based) LoRaWAN GNSS tracker
 
+# Illustrations
+
+* Serial console log (115200, 8N1)
+
+<br>
+
+![](https://github.com/lyusupov/POST_S76G/blob/master/documents/images/t-motion-2.jpg)
+
+<br>
+
+* 0.96" I<sup>2</sup>C OLED display (if connected)
+
+<br>
+
+![](https://github.com/lyusupov/POST_S76G/blob/master/documents/images/t-motion-3.jpg)
+
+<br>
+
 # Sketch build instructions
 
 You will need to get and connect ST-LINK/V2 USB adapter in order to put the firmware into your T-Motion flash memory.<br>
@@ -19,3 +37,11 @@ You will need to get and connect ST-LINK/V2 USB adapter in order to put the firm
 11. Select _Tools_ -> _Upload_ _method_ ->  _STM32CubeProgrammer_ _(SWD)_
 12. Select _Tools_ -> _Port_ ->  ``<your ST-LINK/V2 port device name>``
 13. Build and upload the sketch using _Sketch_ -> _Upload_
+
+## Credits
+
+Name|Subject
+---|---
+[LilyGO company](http://www.lilygo.cn/)|[TTGO T-Motion](https://twitter.com/lilygo9/status/1189494231003324416)
+[Frederic Pillon](https://github.com/fpistm)|[Arduino Core for STM32](https://github.com/stm32duino/Arduino_Core_STM32)
+[Oliver Kraus](https://github.com/olikraus)|[U8g2 monochrome LCD, OLED and eInk library](https://github.com/olikraus/u8g2)
