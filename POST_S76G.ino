@@ -39,6 +39,8 @@
 #define BMP280_CHIPID         (0x58)
 #define BME280_CHIPID         (0x60)
 
+#if defined(ARDUINO_NUCLEO_L073RZ)
+
 #if !defined(USBD_USE_CDC) || defined(DISABLE_GENERIC_SERIALUSB)
 #define Serial                Serial1
 #endif
@@ -78,7 +80,36 @@
 
 #define GNSS_BAUD_RATE        115200
 
+/* Secondary target ("Blue pill") */
+#elif defined(ARDUINO_BLUEPILL_F103C8)
+
+/* GNSS */
+#define SOC_GPIO_PIN_GNSS_RX  PA3
+#define SOC_GPIO_PIN_GNSS_TX  PA2
+
+/* SPI */
+#define SOC_GPIO_PIN_MOSI     PA7
+#define SOC_GPIO_PIN_MISO     PA6
+#define SOC_GPIO_PIN_SCK      PA5
+#define SOC_GPIO_PIN_SS       PA4
+
+/* SX1276 */
+#define SOC_GPIO_PIN_RST      PB5
+#define SOC_GPIO_PIN_DIO0     PB4
+
+/* I2C */
+#define SOC_GPIO_PIN_SDA      PB7
+#define SOC_GPIO_PIN_SCL      PB6
+
+#define GNSS_BAUD_RATE        9600
+
+#else
+#error "This hardware platform is not supported!"
+#endif
+
+#if defined(ARDUINO_NUCLEO_L073RZ)
 HardwareSerial Serial1(SOC_GPIO_PIN_CONS_RX, SOC_GPIO_PIN_CONS_TX);
+#endif
 HardwareSerial Serial3(SOC_GPIO_PIN_GNSS_RX, SOC_GPIO_PIN_GNSS_TX);
 
 U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8_i2c(U8X8_PIN_NONE);
@@ -238,6 +269,7 @@ void setup() {
 
   Serial3.begin(GNSS_BAUD_RATE);
 
+#if defined(ARDUINO_NUCLEO_L073RZ)
   /* drive GNSS RST pin low */
   pinMode(SOC_GPIO_PIN_GNSS_RST, OUTPUT);
   digitalWrite(SOC_GPIO_PIN_GNSS_RST, LOW);
@@ -257,6 +289,7 @@ void setup() {
 
   /* hot start */
   Serial3.write("@GSR\r\n");       delay(250);
+#endif /* ARDUINO_NUCLEO_L073RZ */
 
   has_GNSS = GNSS_probe();
   Serial.print(F("GNSS   - ")); Serial.println(has_GNSS ? F("PASS") : F("FAIL"));
