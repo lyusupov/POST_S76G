@@ -177,6 +177,8 @@ void setup() {
   Serial.println();
   Serial.flush();
 
+  Wire.setSCL(SOC_GPIO_PIN_SCL);
+  Wire.setSDA(SOC_GPIO_PIN_SDA);
   Wire.begin();
 
   /* SSD1306 I2C OLED probing */
