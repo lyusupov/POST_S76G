@@ -46,3 +46,8 @@ Name|Subject
 [LilyGO company](http://www.lilygo.cn/)|[TTGO T-Motion](https://twitter.com/lilygo9/status/1189494231003324416)
 [Frederic Pillon](https://github.com/fpistm)|[Arduino Core for STM32](https://github.com/stm32duino/Arduino_Core_STM32)
 [Oliver Kraus](https://github.com/olikraus)|[U8g2 monochrome LCD, OLED and eInk library](https://github.com/olikraus/u8g2)
+
+# Mode information
+
+1. [List of AcSiP S7xx resources](https://github.com/lyusupov/POST_S76G/wiki/AcSiP-S7xG-resources)
+
