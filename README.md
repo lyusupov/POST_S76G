@@ -1,6 +1,11 @@
 # POST_S76G
 Power-on Self Test for LilyGO&#174; & SoftRF **T-Motion** (AcSiP S76G based) LoRaWAN GNSS tracker
 
+* [Illustrations](https://github.com/lyusupov/POST_S76G/blob/master/README.md#illustrations)
+* [Sketch build instructions](https://github.com/lyusupov/POST_S76G/blob/master/README.md#sketch-build-instructions)
+* [Credits](https://github.com/lyusupov/POST_S76G/blob/master/README.md#credits)
+* [Mode information](https://github.com/lyusupov/POST_S76G/blob/master/README.md#mode-information)
+
 # Illustrations
 
 * Serial console log (115200, 8N1)
