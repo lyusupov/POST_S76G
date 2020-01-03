@@ -48,7 +48,7 @@ Press **BOOT** button on your T-Motion board, plug it into a PC/laptop USB slot,
 
 Name|Subject
 ---|---
-[LilyGO company](http://www.lilygo.cn/)|[TTGO T-Motion](https://www.aliexpress.com/item/4000571051141.html)
+[LilyGO company](http://www.lilygo.cn/)|[TTGO T-Motion](http://www.lilygo.cn/claprod_view.aspx?Id=1250)
 [Frederic Pillon](https://github.com/fpistm)|[Arduino Core for STM32](https://github.com/stm32duino/Arduino_Core_STM32)
 [Oliver Kraus](https://github.com/olikraus)|[U8g2 monochrome LCD, OLED and eInk library](https://github.com/olikraus/u8g2)
 
