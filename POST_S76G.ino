@@ -220,7 +220,8 @@ void setup() {
   digitalWrite(SOC_GPIO_PIN_SS, LOW);
 
   SPI.transfer(SX1276_RegVersion & 0x7F);
-  has_SX1276 = (SPI.transfer(0x00) == 0x12 ? true : false);
+  uint8_t r_ver = SPI.transfer(0x00);
+  has_SX1276 = (r_ver == 0x12 || r_ver == 0x13);
 
   digitalWrite(SOC_GPIO_PIN_SS, HIGH);
 
