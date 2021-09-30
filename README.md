@@ -31,6 +31,14 @@ Power-on Self Test for _(AcSiP S76G based)_ LilyGO&#174; & SoftRF **T-Motion** L
 
 <br>
 
+* 0.49" I<sup>2</sup>C OLED display
+
+<br>
+
+![](https://user-images.githubusercontent.com/5849637/135439946-b8d3885b-1de5-4506-840a-be667fdbb434.jpg)
+
+<br>
+
 # Sketch build instructions
 
 You should have [**STM32CubeProg**](https://www.st.com/en/development-tools/stm32cubeprog.html) been pre-installed in order to program your T-Motion board or T-Impulse wristband.<br>
