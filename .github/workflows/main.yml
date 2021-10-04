@@ -33,11 +33,11 @@ jobs:
       - uses: actions/checkout@v2
       #- name: Setup upterm session
       #  uses: lhotari/action-upterm@v1
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+      - name: Run before_install
         run: |
           /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_1.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -ac -screen 0 1280x1024x16
           sleep 3
@@ -68,3 +68,92 @@ jobs:
               fi
             fi
           fi
+      - name: Run install
+        run: |
+          if [[ "$BOARD" =~ "energia:" ]]; then
+            mkdir $HOME/Energia ;
+            ln -s $PWD/software/firmware/source/libraries $HOME/Energia/libraries ;
+          else if [[ "$BOARD" =~ "raspberry" ]]; then
+              cd $GITHUB_WORKSPACE/software/firmware/source/libraries/bcm2835 ;
+              autoreconf -f ;
+            else
+              mkdir $HOME/Arduino ;
+              ln -s $PWD/software/firmware/source/libraries $HOME/Arduino/libraries ;
+            fi
+          fi
+          if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then
+            arduino --pref "boardsmanager.additional.urls=https://github.com/esp8266/Arduino/releases/download/2.7.0/package_esp8266com_index.json" --save-prefs ;
+            arduino --install-boards esp8266:esp8266 ;
+            arduino --board $BOARD --save-prefs ;
+            arduino --pref "compiler.warning_level=all" --save-prefs ;
+            arduino --pref "custom_LwIPVariant=nodemcuv2_Prebuilt" --save-prefs ;
+          fi
+          if [[ "$BOARD" =~ "esp32:esp32:" ]]; then
+            arduino --pref "boardsmanager.additional.urls=https://github.com/espressif/arduino-esp32/releases/download/1.0.5/package_esp32_index.json" --save-prefs ;
+            arduino --install-boards esp32:esp32 ;
+            arduino --board $BOARD --save-prefs ;
+            cd $HOME/.arduino15/packages/esp32/hardware/esp32/1.0.5/tools/sdk/lib ;
+            rm -f libbt.a ;
+            cp $GITHUB_WORKSPACE/software/firmware/binaries/ESP32/misc/libbt.a . ;
+            cd $GITHUB_WORKSPACE ;
+          fi
+          if [[ "$BOARD" =~ "STM32:stm32:" ]]; then
+            arduino --pref "boardsmanager.additional.urls=https://github.com/stm32duino/BoardManagerFiles/raw/07bcfb337e4c9abe83a029b39e33ddff5a6df2ef/STM32/package_stm_index.json" --save-prefs ;
+            arduino --install-boards STM32:stm32 ;
+            arduino --board $BOARD --save-prefs ;
+            if [[ "$BOARD" =~ "STM32:stm32:Nucleo_64" ]]; then
+              arduino --pref "custom_pnum=Nucleo_64_NUCLEO_L073RZ"  --save-prefs ;
+              arduino --pref "custom_opt=Nucleo_64_osstd"           --save-prefs ;
+              arduino --pref "custom_rtlib=Nucleo_64_nano"          --save-prefs ;
+              arduino --pref "custom_usb=Nucleo_64_CDCgen"          --save-prefs ;
+              arduino --pref "custom_xserial=Nucleo_64_none"        --save-prefs ;
+              arduino --pref "custom_xusb=Nucleo_64_FS"             --save-prefs ;
+            fi ;
+            if [[ "$BOARD" =~ "STM32:stm32:GenF1" ]]; then
+              arduino --pref "custom_pnum=GenF1_BLUEPILL_F103CB"   --save-prefs ;
+              arduino --pref "custom_opt=GenF1_osstd"              --save-prefs ;
+              arduino --pref "custom_rtlib=GenF1_nano"             --save-prefs ;
+              arduino --pref "custom_usb=GenF1_CDCgen"             --save-prefs ;
+              arduino --pref "custom_xserial=GenF1_none"           --save-prefs ;
+              arduino --pref "custom_xusb=GenF1_FS"                --save-prefs ;
+            fi ;
+            cd $GITHUB_WORKSPACE ;
+          fi
+          if [[ "$BOARD" =~ "energia:cc13xx:" ]]; then
+            energia --install-boards energia:cc13xx ;
+            energia --board $BOARD --save-prefs ;
+            ln -s $PWD/software/firmware/source/UATbridge $HOME/Energia/UATbridge ;
+            cd $GITHUB_WORKSPACE/software/firmware/source/UATbridge ;
+            make links ;
+            cd $GITHUB_WORKSPACE ;
+          fi
+          if [[ "$BOARD" =~ "CubeCell:CubeCell:" ]]; then
+            arduino --pref "boardsmanager.additional.urls=https://github.com/HelTecAutomation/ASR650x-Arduino/releases/download/V1.2.0/package_CubeCell_index.json" --save-prefs ;
+            arduino --install-boards CubeCell:CubeCell ;
+            arduino --board $BOARD --save-prefs ;
+            arduino --pref "custom_LORAWAN_ADR=CubeCell-GPS_1"         --save-prefs ;
+            arduino --pref "custom_LORAWAN_AT_SUPPORT=CubeCell-GPS_1"  --save-prefs ;
+            arduino --pref "custom_LORAWAN_CLASS=CubeCell-GPS_0"       --save-prefs ;
+            arduino --pref "custom_LORAWAN_DEVEUI=CubeCell-GPS_0"      --save-prefs ;
+            arduino --pref "custom_LORAWAN_DebugLevel=CubeCell-GPS_0"  --save-prefs ;
+            arduino --pref "custom_LORAWAN_NETMODE=CubeCell-GPS_1"     --save-prefs ;
+            arduino --pref "custom_LORAWAN_Net_Reserve=CubeCell-GPS_0" --save-prefs ;
+            arduino --pref "custom_LORAWAN_REGION=CubeCell-GPS_0"      --save-prefs ;
+            arduino --pref "custom_LORAWAN_RGB=CubeCell-GPS_0"         --save-prefs ;
+            arduino --pref "custom_LORAWAN_UPLINKMODE=CubeCell-GPS_1"  --save-prefs ;
+            cd $HOME/.arduino15/packages/CubeCell/hardware/CubeCell/1.2.0 ;
+            sed -i 's/-ffunction-sections -ffat-lto-objects/-ffunction-sections -fdata-sections -ffat-lto-objects/g' platform.txt ;
+            cd $GITHUB_WORKSPACE ;
+          fi
+          if [[ "$BOARD" =~ "adafruit:nrf52:" ]]; then
+            arduino --pref "boardsmanager.additional.urls=https://www.adafruit.com/package_adafruit_index.json" --save-prefs ;
+            arduino --install-boards adafruit:nrf52:1.0.0 ;
+            arduino --board $BOARD --save-prefs ;
+            arduino --pref "custom_debug=pca10056_l0"                 --save-prefs ;
+            arduino --pref "custom_softdevice=pca10056_s140v6"        --save-prefs ;
+            if [[ ! -f ~/.local/bin/adafruit-nrfutil ]]; then
+              ln -s /bin/true ~/.local/bin/adafruit-nrfutil;
+            fi ;
+            cd $GITHUB_WORKSPACE ;
+          fi
+
