@@ -77,7 +77,7 @@ jobs:
               autoreconf -f ;
             else
               mkdir $HOME/Arduino ;
-              ln -s $PWD/software/firmware/source/libraries $HOME/Arduino/libraries ;
+              ln -s $PWD/libraries $HOME/Arduino/libraries ;
             fi
           fi
           if [[ "$BOARD" =~ "esp8266:esp8266:" ]]; then
