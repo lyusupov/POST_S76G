@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        board: [STM32:stm32:Nucleo_64 STM32:stm32:GenF1]
+        board: ['STM32:stm32:Nucleo_64', 'STM32:stm32:GenF1']
 
     env:
       ARDUINO_IDE_VERSION: 1.8.6
