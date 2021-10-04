@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: build
 
 # Controls when the workflow will run
 on:
@@ -23,7 +23,7 @@ jobs:
         board: ['STM32:stm32:Nucleo_64']
 
     env:
-      ARDUINO_IDE_VERSION: 1.8.6
+      ARDUINO_IDE_VERSION: 1.8.13
       BOARD: ${{ matrix.board }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
