@@ -1,4 +1,5 @@
-# POST_S76G
+# POST_S76G &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [![build](https://github.com/lyusupov/POST_S76G/actions/workflows/main.yml/badge.svg)](https://github.com/lyusupov/POST_S76G/actions/workflows/main.yml)
+
 Power-on Self Test for _(AcSiP S76G based)_ LilyGO&#174; & SoftRF **T-Motion** LoRaWAN GNSS tracker and **T-Impulse** wristband
 
 * [Illustrations](https://github.com/lyusupov/POST_S76G/blob/master/README.md#illustrations)
